@@ -1,0 +1,84 @@
+
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    double voltage, temperature, soc;
+    double current;
+
+    cout << "====================================\n";
+    cout << "    BATTERY MANAGEMENT SYSTEM (BMS)\n";
+    cout << "====================================\n";
+
+    cout << "Enter Battery Voltage (V): ";
+    cin >> voltage;
+
+    cout << "Enter Battery Current (A): ";
+    cin >> current;
+
+    cout << "Enter Battery Temperature (C): ";
+    cin >> temperature;
+
+    cout << "Enter State of Charge (0-100%): ";
+    cin >> soc;
+
+    // Validate input
+    if (voltage < 0 || current < 0 ||
+        soc < 0 || soc > 100) {
+        cout << "\nInvalid input values!\n";
+        return 1;
+    }
+
+    cout << fixed << setprecision(2);
+
+    cout << "\n====================================\n";
+    cout << "          BATTERY STATUS\n";
+    cout << "====================================\n";
+
+    cout << "Voltage     : " << voltage << " V\n";
+    cout << "Current     : " << current << " A\n";
+    cout << "Temperature : " << temperature << " C\n";
+    cout << "SOC         : " << soc << " %\n";
+
+    // Battery voltage status
+    if (voltage < 10.5) {
+        cout << "Voltage Status: LOW\n";
+    } else if (voltage > 14.4) {
+        cout << "Voltage Status: HIGH\n";
+    } else {
+        cout << "Voltage Status: NORMAL\n";
+    }
+
+    // Battery temperature status
+    if (temperature < 0) {
+        cout << "Temperature Status: TOO COLD\n";
+    } else if (temperature > 45) {
+        cout << "Temperature Status: HIGH - WARNING!\n";
+    } else {
+        cout << "Temperature Status: NORMAL\n";
+    }
+
+    // State of charge status
+    if (soc <= 20) {
+        cout << "Charge Status: LOW BATTERY\n";
+    } else if (soc >= 100) {
+        cout << "Charge Status: FULLY CHARGED\n";
+    } else {
+        cout << "Charge Status: BATTERY AVAILABLE\n";
+    }
+
+    // Overall monitoring result
+    cout << "\nSystem Status: ";
+
+    if (voltage < 10.5 || voltage > 14.4 ||
+        temperature > 45 || temperature < 0) {
+        cout << "WARNING - CHECK BATTERY\n";
+    } else {
+        cout << "BATTERY OPERATING WITHIN SET LIMITS\n";
+    }
+
+    cout << "====================================\n";
+
+    return 0;
+}
